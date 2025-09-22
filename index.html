@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마찰력 가상 실험</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 마찰력 가상 실험</h1>
+        <p>물체의 질량, 표면의 종류, 가하는 힘에 따라 마찰력이 어떻게 변하는지 알아보세요.</p>
+        
+        <div class="simulation-area">
+            <canvas id="frictionCanvas" width="700" height="300"></canvas>
+        </div>
+
+        <div class="results-display">
+            <div class="result-item">
+                <h4>수직항력 (Normal Force)</h4>
+                <p><span id="normalForceValue">0</span> N</p>
+            </div>
+            <div class="result-item">
+                <h4>최대 정지 마찰력 (Max Static Friction)</h4>
+                <p><span id="maxFrictionValue">0</span> N</p>
+            </div>
+            <div class="result-item">
+                <h4>상태 (Status)</h4>
+                <p><span id="statusValue">정지</span></p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="mass">🧊 물체 질량: <span id="massLabel">5</span> kg</label>
+                <input type="range" id="mass" min="1" max="20" value="5">
+            </div>
+            <div class="control-group">
+                <label for="surface">🌐 표면 종류</label>
+                <select id="surface">
+                    <option value="ice">얼음 (μ=0.1)</option>
+                    <option value="wood" selected>나무 (μ=0.4)</option>
+                    <option value="concrete">콘크리트 (μ=0.7)</option>
+                    <option value="sandpaper">사포 (μ=0.9)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="appliedForce">💪 가하는 힘: <span id="appliedForceLabel">0</span> N</label>
+                <input type="range" id="appliedForce" min="0" max="200" value="0">
+            </div>
+        </div>
+        <button id="resetButton">🔄 초기화</button>
+        </div>
+        </div>
+            <img id="copyright" src="copyright.png" alt="저작권">
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

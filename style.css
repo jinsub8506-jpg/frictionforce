@@ -1,0 +1,151 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --bg-color: #f0f4f8;
+    --container-bg: #ffffff;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+}
+
+.container {
+    background: var(--container-bg);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+
+}
+
+/* --- 저작권 이미지 위치 --- */
+#copyright {
+    position: absolute; 
+    bottom: 20px;      
+    right: 20px;       
+    height: 20px;
+    z-index: -1;
+}
+
+
+h1 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+p {
+    color: #7f8c8d;
+    margin-bottom: 25px;
+}
+
+.simulation-area {
+    background: #fdfdfd;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+#frictionCanvas {
+    width: 100%;
+    height: auto;
+}
+
+.results-display {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.result-item h4 {
+    margin: 0 0 5px 0;
+    color: var(--secondary-color);
+    font-size: 1em;
+}
+
+.result-item p {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.control-group {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.control-group:nth-child(3) {
+    grid-column: 1 / 3; /* 가하는 힘 슬라이더는 넓게 */
+}
+
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #555;
+}
+
+input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+#resetButton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    z-index: 2;
+}
+
+#resetButton:hover {
+    background-color: #c0392b;
+    
+}
+
+.grabbable {
+    cursor: grab;
+}
+
+.grabbing {
+    cursor: grabbing;
+}
