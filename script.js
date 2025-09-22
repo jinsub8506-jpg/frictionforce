@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
             netForce = 0;
             boxState.vx = 0;
         } else {
-            // ✨ 마찰력 방향 수정: 속도가 있으면 속도의 반대방향, 없으면 가하는 힘의 반대방향
             const motionSign = boxState.vx !== 0 ? Math.sign(boxState.vx) : Math.sign(appliedForce);
             const frictionDirection = -motionSign;
             const friction = kineticFriction * frictionDirection;
@@ -68,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
         boxState.vx += acceleration * dt;
         const finalVxSign = Math.sign(boxState.vx);
 
-        // 마찰력에 의해 물체가 멈췄다가 반대로 가는 현상 방지
         if (initialVxSign !== 0 && initialVxSign !== finalVxSign && Math.abs(appliedForce) < kineticFriction) {
             boxState.vx = 0;
         }
@@ -94,6 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         ctx.fillStyle = surface.color;
         ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
+
+        // ✨ 표면 거칠기 그리기 함수 호출
+        drawRoughness(surface);
+
         ctx.fillStyle = '#666';
         ctx.font = '16px Segoe UI';
         ctx.textAlign = 'center';
@@ -112,13 +114,33 @@ document.addEventListener('DOMContentLoaded', () => {
             drawArrow(boxRect.x + boxRect.width / 2, arrowY, boxRect.x + boxRect.width / 2 + appliedForce, arrowY, '#3498db', `${appliedForce.toFixed(0)} N`);
         }
         if (frictionToDisplay > 0.1) {
-            // ✨ 마찰력 화살표 방향 수정: 속도가 있으면 속도의 반대방향, 없으면 가하는 힘의 반대방향
             const moveDirection = boxState.vx !== 0 ? Math.sign(boxState.vx) : Math.sign(appliedForce);
             if(moveDirection !== 0) {
                 const frictionDirection = -moveDirection;
                 drawArrow(boxRect.x + boxRect.width/2, arrowY + 30, boxRect.x + boxRect.width/2 + frictionToDisplay * frictionDirection, arrowY + 30, '#e74c3c', `${frictionToDisplay.toFixed(1)} N`);
             }
         }
+    }
+
+    // ✨ 표면의 거칠기를 그리는 새로운 함수
+    function drawRoughness(surface) {
+        const mu = surface.mu_s;
+        if (mu < 0.15) return; // 마찰계수가 매우 낮으면 그리지 않음
+
+        const surfaceY = canvas.height - 50;
+        const roughnessHeight = mu * 6; // 마찰계수에 비례하는 요철 높이
+        const roughnessWidth = Math.max(5, 15 - mu * 10); // 마찰계수에 반비례하는 요철 너비
+
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)'; // 요철 색상
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        
+        for (let x = 0; x < canvas.width; x += roughnessWidth) {
+            ctx.moveTo(x, surfaceY);
+            ctx.lineTo(x + roughnessWidth / 2, surfaceY - roughnessHeight * (0.5 + Math.random() * 0.5));
+            ctx.lineTo(x + roughnessWidth, surfaceY);
+        }
+        ctx.stroke();
     }
     
     function drawArrow(fromx, fromy, tox, toy, color, text) {
